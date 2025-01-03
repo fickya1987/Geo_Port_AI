@@ -88,7 +88,7 @@ st.markdown(
 st.markdown(
     """
     <p style="font-family: 'Arial', sans-serif; font-size: 18px; color: #5D6D7E;">
-        Aplikasi ini memvisualisasikan berbagai rute pelayaran dan menyediakan analisis menggunakan GPT-4o.
+        Aplikasi ini memvisualisasikan berbagai rute pelayaran dan menyediakan analisis Pelindo AI.
     </p>
     """,
     unsafe_allow_html=True
