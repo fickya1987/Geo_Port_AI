@@ -111,7 +111,7 @@ if st.button("Analisis Pelindo AI"):
 # GPT-4 Custom Query
 st.subheader("Pencarian Global")
 custom_query = st.text_area("Masukkan pertanyaan atau analisis yang Anda perlukan:")
-if st.button("Cari GPT-4"):
+if st.button("Pelindo AI"):
     if custom_query:
         try:
             response = openai.ChatCompletion.create(
