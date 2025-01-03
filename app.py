@@ -19,7 +19,14 @@ openai.api_key = openai_api_key
 # Add company logo
 st.image("pelindo_logo.jfif", use_container_width=True)
 
-st.title("Pelindo-TKMP AI Route Analysis")
+st.markdown(
+    """
+    <h1 style="text-align: center; font-family: 'Helvetica', sans-serif; font-size: 36px; color: #2E86C1;">
+        Analisis Sensitivitas AI Pelindo-TKMP
+    </h1>
+    """,
+    unsafe_allow_html=True
+)
 
 # Define coordinates for the routes
 def add_route_to_map(route_map, route_coords, route_name, route_points):
@@ -69,8 +76,23 @@ routes = {
 }
 
 # Streamlit UI
-st.title("Visualisasi dan Analisis Rute Kapal")
-st.markdown("Aplikasi ini memvisualisasikan berbagai rute pelayaran dan menyediakan analisis menggunakan GPT-4o.")
+st.markdown(
+    """
+    <h2 style="text-align: center; font-family: 'Helvetica', sans-serif; font-size: 28px; color: #2874A6;">
+        Visualisasi dan Analisis Rute Kapal
+    </h2>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+    <p style="font-family: 'Arial', sans-serif; font-size: 18px; color: #5D6D7E;">
+        Aplikasi ini memvisualisasikan berbagai rute pelayaran dan menyediakan analisis menggunakan GPT-4o.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
 
 # Route Selection
 selected_route = st.selectbox("Pilih rute untuk divisualisasikan:", list(routes.keys()))
@@ -87,7 +109,15 @@ if selected_route:
 st_folium(m, width=700, height=500)
 
 # GPT-4 Analysis
-st.subheader("Analisis AI Pelindo")
+st.markdown(
+    """
+    <h3 style="font-family: 'Arial', sans-serif; font-size: 24px; color: #2E4053;">
+        Analisis AI Pelindo
+    </h3>
+    """,
+    unsafe_allow_html=True
+)
+
 if st.button("Analisis Pelindo AI"):
     prompt = (
         f"Rute yang dipilih adalah: {selected_route}. Berikan analisis mendalam tentang bagaimana rute ini memengaruhi efisiensi logistik untuk PT Pelindo. Sertakan dampak ekonomi, potensi kemacetan pelabuhan, dan peluang optimalisasi rute yang dapat meningkatkan efisiensi operasional."
@@ -109,7 +139,15 @@ if st.button("Analisis Pelindo AI"):
         st.error(f"Error berkomunikasi dengan GPT-4: {e}")
 
 # GPT-4 Custom Query
-st.subheader("Pencarian Global")
+st.markdown(
+    """
+    <h3 style="font-family: 'Arial', sans-serif; font-size: 24px; color: #2E4053;">
+        Pencarian Global
+    </h3>
+    """,
+    unsafe_allow_html=True
+)
+
 custom_query = st.text_area("Masukkan pertanyaan atau analisis yang Anda perlukan:")
 if st.button("Pelindo AI"):
     if custom_query:
@@ -123,70 +161,88 @@ if st.button("Pelindo AI"):
                 max_tokens=2048,
                 temperature=1.0
             )
-            st.write(response.choices[0].message["content"].strip())
+            st.markdown(
+                f"""<p style='font-family: Arial; font-size: 16px; color: #1F618D;'>{response.choices[0].message['content'].strip()}</p>""",
+                unsafe_allow_html=True
+            )
         except Exception as e:
             st.error(f"Error berkomunikasi dengan GPT-4: {e}")
     else:
         st.warning("Mohon masukkan pertanyaan atau analisis yang diinginkan.")
 
 # Add Route Images and Descriptions
-st.subheader("Gambar dan Deskripsi Rute")
+st.markdown(
+    """
+    <h3 style="font-family: 'Arial', sans-serif; font-size: 24px; color: #2E4053;">
+        Gambar dan Deskripsi Rute
+    </h3>
+    """,
+    unsafe_allow_html=True
+)
+
 st.image("Ship-route-description-from-Asia-to-Northern-Europe.png", caption="Rute Busan ke Hamburg")
 st.markdown(
-    """### Deskripsi:
+    """<div style="font-family: 'Arial'; font-size: 16px; color: #34495E; line-height: 1.6;">
     Berdasarkan peta yang Anda unggah, berikut adalah pelabuhan-pelabuhan yang dilewati oleh kapal dari Asia menuju Eropa Utara:
-    - **Busan (Korea Selatan)**: Pelabuhan awal di Asia Timur.
-    - **Qingdao (China)**: Pelabuhan di Tiongkok Timur.
-    - **Shanghai (China)**: Salah satu pelabuhan terbesar di dunia.
-    - **Yantian (China)**: Pelabuhan di wilayah Shenzhen.
-    - **Singapore**: Pelabuhan penghubung utama di Asia Tenggara.
-    - **Algeciras (Spanyol)**: Pelabuhan di pintu masuk ke Eropa melalui Selat Gibraltar.
-    - **Le Havre (Prancis)**: Pelabuhan utama di Eropa Barat.
-    - **Rotterdam (Belanda)**: Salah satu pelabuhan terbesar di Eropa.
-    - **Hamburg (Jerman)**: Pelabuhan akhir di Eropa Utara.
-
-    Rute ini menghubungkan pusat-pusat ekonomi utama di Asia dengan Eropa.
-    """)
+    - <strong>Busan (Korea Selatan)</strong>: Pelabuhan awal di Asia Timur.
+    - <strong>Qingdao (China)</strong>: Pelabuhan di Tiongkok Timur.
+    - <strong>Shanghai (China)</strong>: Salah satu pelabuhan terbesar di dunia.
+    - <strong>Yantian (China)</strong>: Pelabuhan di wilayah Shenzhen.
+    - <strong>Singapore</strong>: Pelabuhan penghubung utama di Asia Tenggara.
+    - <strong>Algeciras (Spanyol)</strong>: Pelabuhan di pintu masuk ke Eropa melalui Selat Gibraltar.
+    - <strong>Le Havre (Prancis)</strong>: Pelabuhan utama di Eropa Barat.
+    - <strong>Rotterdam (Belanda)</strong>: Salah satu pelabuhan terbesar di Eropa.
+    - <strong>Hamburg (Jerman)</strong>: Pelabuhan akhir di Eropa Utara.
+    </div>""",
+    unsafe_allow_html=True
+)
 
 st.image("attacks-redsea-trade-routes-map-POL3820.jpg", caption="Dampak Perubahan Rute Perdagangan Laut Merah")
 st.markdown(
-    """### Deskripsi:
+    """<div style="font-family: 'Arial'; font-size: 16px; color: #34495E; line-height: 1.6;">
     Peta ini mengilustrasikan bagaimana serangan terhadap kapal dagang di Laut Merah memengaruhi rute perdagangan:
-    - **Sebelum Perang Gaza**: Rute utama mencakup Selat Hormuz, Selat Bab al-Mandab, dan Terusan Suez.
-    - **Selama Perang Gaza**: Rute alternatif digunakan untuk menghindari area berisiko tinggi, memperpanjang waktu perjalanan secara signifikan.
-    - **Potensi Pengalihan Rute Minyak Teluk**: Kapal menghindari seluruh wilayah Teluk Persia, menggunakan rute yang lebih panjang dan aman melalui Tanjung Harapan.
+    - <strong>Sebelum Perang Gaza</strong>: Rute utama mencakup Selat Hormuz, Selat Bab al-Mandab, dan Terusan Suez.
+    - <strong>Selama Perang Gaza</strong>: Rute alternatif digunakan untuk menghindari area berisiko tinggi, memperpanjang waktu perjalanan secara signifikan.
+    - <strong>Potensi Pengalihan Rute Minyak Teluk</strong>: Kapal menghindari seluruh wilayah Teluk Persia, menggunakan rute yang lebih panjang dan aman melalui Tanjung Harapan.
 
-    Implikasi Strategis:
+    <strong>Implikasi Strategis:</strong>
     - Biaya lebih tinggi karena rute yang lebih panjang.
     - Peningkatan biaya bahan bakar dan operasional.
     - Premi keamanan dan asuransi meningkat.
-    """)
+    </div>""",
+    unsafe_allow_html=True
+)
 
 st.image("1500img-4.jpg", caption="Rute Jakarta ke Shanghai dan Kembali")
 st.markdown(
-    """### Deskripsi:
-    - **Rute Hijau (Jakarta ke Shanghai)**:
+    """<div style="font-family: 'Arial'; font-size: 16px; color: #34495E; line-height: 1.6;">
+    <strong>Rute Hijau (Jakarta ke Shanghai)</strong>:
         - Jakarta (Indonesia), Surabaya, Shekou (China), Shantou, Fuqing, Shanghai-Ningbo (China).
-    - **Rute Merah (Shanghai ke Jakarta)**:
+    <strong>Rute Merah (Shanghai ke Jakarta)</strong>:
         - Shanghai-Ningbo, Fuqing, Shantou, Shekou, Manila (Filipina), Davao, Jakarta.
 
-    Sorotan:
+    <strong>Sorotan:</strong>
     - Menghubungkan Asia Tenggara dengan Tiongkok secara efisien.
     - Hub perdagangan regional Manila memainkan peran penting.
-    """)
+    </div>""",
+    unsafe_allow_html=True
+)
 
 st.image("Direct-Call.jpg", caption="Rute Direct Call dari Tanjung Priok")
 st.markdown(
-    """### Deskripsi:
+    """<div style="font-family: 'Arial'; font-size: 16px; color: #34495E; line-height: 1.6;">
     Rute dari Tanjung Priok menghubungkan Indonesia langsung ke:
-    - **Amerika Serikat**: Pelabuhan-pelabuhan di pantai timur seperti New York dan Norfolk.
-    - **Eropa**: Pelabuhan seperti Rotterdam dan Hamburg.
-    - **Intra-Asia**: Hub utama seperti Singapura dan Hong Kong.
-    - **Australia**: Brisbane, Adelaide, Sydney, dan Melbourne.
+    - <strong>Amerika Serikat</strong>: Pelabuhan-pelabuhan di pantai timur seperti New York dan Norfolk.
+    - <strong>Eropa</strong>: Pelabuhan seperti Rotterdam dan Hamburg.
+    - <strong>Intra-Asia</strong>: Hub utama seperti Singapura dan Hong Kong.
+    - <strong>Australia</strong>: Brisbane, Adelaide, Sydney, dan Melbourne.
 
-    Manfaat:
+    <strong>Manfaat:</strong>
     - Mengurangi waktu transit.
     - Rute ekspor yang kompetitif.
-    """)
+    </div>""",
+    unsafe_allow_html=True
+)
+
 
 
