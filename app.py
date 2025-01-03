@@ -22,7 +22,7 @@ st.image("pelindo_logo.jfif", use_container_width=True)
 st.markdown(
     """
     <h1 style="text-align: center; font-family: 'Helvetica', sans-serif; font-size: 36px; color: #2E86C1;">
-        Analisis Sensitivitas AI Pelindo-TKMP
+        Pelindo-TKMP AI Route Analysis
     </h1>
     """,
     unsafe_allow_html=True
@@ -204,7 +204,6 @@ st.markdown(
     - <strong>Sebelum Perang Gaza</strong>: Rute utama mencakup Selat Hormuz, Selat Bab al-Mandab, dan Terusan Suez.
     - <strong>Selama Perang Gaza</strong>: Rute alternatif digunakan untuk menghindari area berisiko tinggi, memperpanjang waktu perjalanan secara signifikan.
     - <strong>Potensi Pengalihan Rute Minyak Teluk</strong>: Kapal menghindari seluruh wilayah Teluk Persia, menggunakan rute yang lebih panjang dan aman melalui Tanjung Harapan.
-
     <strong>Implikasi Strategis:</strong>
     - Biaya lebih tinggi karena rute yang lebih panjang.
     - Peningkatan biaya bahan bakar dan operasional.
@@ -220,7 +219,6 @@ st.markdown(
         - Jakarta (Indonesia), Surabaya, Shekou (China), Shantou, Fuqing, Shanghai-Ningbo (China).
     <strong>Rute Merah (Shanghai ke Jakarta)</strong>:
         - Shanghai-Ningbo, Fuqing, Shantou, Shekou, Manila (Filipina), Davao, Jakarta.
-
     <strong>Sorotan:</strong>
     - Menghubungkan Asia Tenggara dengan Tiongkok secara efisien.
     - Hub perdagangan regional Manila memainkan peran penting.
@@ -236,7 +234,6 @@ st.markdown(
     - <strong>Eropa</strong>: Pelabuhan seperti Rotterdam dan Hamburg.
     - <strong>Intra-Asia</strong>: Hub utama seperti Singapura dan Hong Kong.
     - <strong>Australia</strong>: Brisbane, Adelaide, Sydney, dan Melbourne.
-
     <strong>Manfaat:</strong>
     - Mengurangi waktu transit.
     - Rute ekspor yang kompetitif.
