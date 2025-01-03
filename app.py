@@ -23,6 +23,8 @@ st.title("Pelindo-TKMP AI Sensitivity Analysis")
 
 # Define coordinates for the routes
 def add_route_to_map(route_map, route_coords, route_name):
+    for coord in route_coords:
+        folium.Marker(coord, popup=f"{route_name}").add_to(route_map)
     folium.PolyLine(route_coords, color='blue', weight=2.5, opacity=0.8, tooltip=route_name).add_to(route_map)
 
 routes = {
@@ -95,4 +97,25 @@ if st.button("Pelindo AI"):
         st.write(response.choices[0].message["content"].strip())
     except Exception as e:
         st.error(f"Error berkomunikasi dengan GPT-4: {e}")
+
+# GPT-4 Custom Query
+st.subheader("Global Search")
+custom_query = st.text_area("Masukkan pertanyaan atau analisis yang Anda perlukan:")
+if st.button("Search GPT-4"):
+    if custom_query:
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "Anda adalah ahli analisis data dan logistik."},
+                    {"role": "user", "content": custom_query}
+                ],
+                max_tokens=2048,
+                temperature=1.0
+            )
+            st.write(response.choices[0].message["content"].strip())
+        except Exception as e:
+            st.error(f"Error berkomunikasi dengan GPT-4: {e}")
+    else:
+        st.warning("Mohon masukkan pertanyaan atau analisis yang diinginkan.")
 
