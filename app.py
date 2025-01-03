@@ -19,44 +19,53 @@ openai.api_key = openai_api_key
 # Add company logo
 st.image("pelindo_logo.jfif", use_container_width=True)
 
-st.title("Pelindo-TKMP AI Shipping Route Analysis")
+st.title("Pelindo-TKMP AI Route Analysis")
 
 # Define coordinates for the routes
-def add_route_to_map(route_map, route_coords, route_name):
-    for coord in route_coords:
-        folium.Marker(coord, popup=f"{route_name}").add_to(route_map)
+def add_route_to_map(route_map, route_coords, route_name, route_points):
+    for coord, point_name in zip(route_coords, route_points):
+        folium.Marker(coord, popup=f"{route_name}: {point_name}").add_to(route_map)
     folium.PolyLine(route_coords, color='blue', weight=2.5, opacity=0.8, tooltip=route_name).add_to(route_map)
 
 routes = {
-    "China-Indonesia": [
-        (31.2304, 121.4737),  # Shanghai
-        (28.1802, 121.2787),  # Ningbo
-        (25.7528, 119.3400),  # Fuqing
-        (23.3541, 116.6819),  # Shantou
-        (22.5431, 114.0579),  # Shekou
-        (-6.2088, 106.8456),  # Jakarta
-        (-7.2575, 112.7521)   # Surabaya
-    ],
-    "Middle-East-Southeast Asia": [
-        (26.3927, 50.9775),  # Dammam
-        (25.276987, 55.296249),  # Jebel Ali
-        (22.3039, 73.1926),  # Mundra
-        (19.0760, 72.8777),  # Nhava Sheva
-        (13.7234, 100.4762),  # Laem Chabang
-        (10.7769, 106.7009),  # Cai Mep
-        (1.3521, 103.8198),  # Singapore
-        (-6.2088, 106.8456)   # Jakarta
-    ],
-    "Global Direct Call": [
-        (40.7128, -74.0060),  # New York
-        (36.8508, -76.2859),  # Norfolk
-        (32.0835, -81.0998),  # Savannah
-        (22.3964, 114.1095),  # Hong Kong
-        (13.7234, 100.4762),  # Laem Chabang
-        (1.3521, 103.8198),  # Singapore
-        (-6.2088, 106.8456),  # Jakarta
-        (-33.8688, 151.2093)  # Sydney
-    ]
+    "China-Indonesia": {
+        "coords": [
+            (31.2304, 121.4737),  # Shanghai
+            (28.1802, 121.2787),  # Ningbo
+            (25.7528, 119.3400),  # Fuqing
+            (23.3541, 116.6819),  # Shantou
+            (22.5431, 114.0579),  # Shekou
+            (-6.2088, 106.8456),  # Jakarta
+            (-7.2575, 112.7521)   # Surabaya
+        ],
+        "points": ["Shanghai", "Ningbo", "Fuqing", "Shantou", "Shekou", "Jakarta", "Surabaya"]
+    },
+    "Middle-East-Southeast Asia": {
+        "coords": [
+            (26.3927, 50.9775),  # Dammam
+            (25.276987, 55.296249),  # Jebel Ali
+            (22.3039, 73.1926),  # Mundra
+            (19.0760, 72.8777),  # Nhava Sheva
+            (13.7234, 100.4762),  # Laem Chabang
+            (10.7769, 106.7009),  # Cai Mep
+            (1.3521, 103.8198),  # Singapore
+            (-6.2088, 106.8456)   # Jakarta
+        ],
+        "points": ["Dammam", "Jebel Ali", "Mundra", "Nhava Sheva", "Laem Chabang", "Cai Mep", "Singapore", "Jakarta"]
+    },
+    "Global Direct Call": {
+        "coords": [
+            (40.7128, -74.0060),  # New York
+            (36.8508, -76.2859),  # Norfolk
+            (32.0835, -81.0998),  # Savannah
+            (22.3964, 114.1095),  # Hong Kong
+            (13.7234, 100.4762),  # Laem Chabang
+            (1.3521, 103.8198),  # Singapore
+            (-6.2088, 106.8456),  # Jakarta
+            (-33.8688, 151.2093)  # Sydney
+        ],
+        "points": ["New York", "Norfolk", "Savannah", "Hong Kong", "Laem Chabang", "Singapore", "Jakarta", "Sydney"]
+    }
 }
 
 # Streamlit UI
@@ -71,7 +80,8 @@ m = folium.Map(location=[0, 100], zoom_start=3)
 
 # Add selected route to the map
 if selected_route:
-    add_route_to_map(m, routes[selected_route], selected_route)
+    route_data = routes[selected_route]
+    add_route_to_map(m, route_data["coords"], selected_route, route_data["points"])
 
 # Display the map
 st_folium(m, width=700, height=500)
@@ -118,4 +128,5 @@ if st.button("Search GPT-4"):
             st.error(f"Error berkomunikasi dengan GPT-4: {e}")
     else:
         st.warning("Mohon masukkan pertanyaan atau analisis yang diinginkan.")
+
 
