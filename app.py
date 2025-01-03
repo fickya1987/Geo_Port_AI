@@ -19,7 +19,7 @@ openai.api_key = openai_api_key
 # Add company logo
 st.image("pelindo_logo.jfif", use_container_width=True)
 
-st.title("Pelindo-TKMP AI Route Analysis")
+st.title("Pelindo-TKMP AI Sensitivity Analysis")
 
 # Define coordinates for the routes
 def add_route_to_map(route_map, route_coords, route_name):
@@ -61,12 +61,15 @@ routes = {
 st.title("Ship Route Visualization and Analysis")
 st.markdown("This app visualizes various shipping routes and provides analysis using GPT-4o.")
 
+# Route Selection
+selected_route = st.selectbox("Select a route to visualize:", list(routes.keys()))
+
 # Initialize map
 m = folium.Map(location=[0, 100], zoom_start=3)
 
-# Add routes to the map
-for route_name, coords in routes.items():
-    add_route_to_map(m, coords, route_name)
+# Add selected route to the map
+if selected_route:
+    add_route_to_map(m, routes[selected_route], selected_route)
 
 # Display the map
 st_folium(m, width=700, height=500)
@@ -75,7 +78,7 @@ st_folium(m, width=700, height=500)
 st.subheader("Analisis Pelindo AI")
 if st.button("Pelindo AI"):
     prompt = (
-        f"Aplikasi ini memvisualisasikan rute kapal berikut: {list(routes.keys())}. Berikan analisis mendalam tentang bagaimana rute ini memengaruhi efisiensi logistik untuk PT Pelindo. Sertakan dampak ekonomi, potensi kemacetan pelabuhan, dan peluang optimalisasi rute yang dapat meningkatkan efisiensi operasional."
+        f"Rute yang dipilih adalah: {selected_route}. Berikan analisis mendalam tentang bagaimana rute ini memengaruhi efisiensi logistik untuk PT Pelindo. Sertakan dampak ekonomi, potensi kemacetan pelabuhan, dan peluang optimalisasi rute yang dapat meningkatkan efisiensi operasional."
     )
 
     # GPT-4 API call
@@ -92,3 +95,4 @@ if st.button("Pelindo AI"):
         st.write(response.choices[0].message["content"].strip())
     except Exception as e:
         st.error(f"Error berkomunikasi dengan GPT-4: {e}")
+
