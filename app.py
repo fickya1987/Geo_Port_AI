@@ -9,6 +9,17 @@ import os
 
 # Load environment variables
 load_dotenv()
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+if not openai_api_key:
+    raise ValueError("OPENAI_API_KEY is not set in the .env file")
+
+openai.api_key = openai_api_key
+
+# Add company logo
+st.image("pelindo_logo.jfif", use_container_width=True)
+
+st.title("Pelindo-TKMP AI Route Analysis")
 
 # Define coordinates for the routes
 def add_route_to_map(route_map, route_coords, route_name):
