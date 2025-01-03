@@ -69,11 +69,11 @@ routes = {
 }
 
 # Streamlit UI
-st.title("Ship Route Visualization and Analysis")
-st.markdown("This app visualizes various shipping routes and provides analysis using GPT-4o.")
+st.title("Visualisasi dan Analisis Rute Kapal")
+st.markdown("Aplikasi ini memvisualisasikan berbagai rute pelayaran dan menyediakan analisis menggunakan GPT-4o.")
 
 # Route Selection
-selected_route = st.selectbox("Select a route to visualize:", list(routes.keys()))
+selected_route = st.selectbox("Pilih rute untuk divisualisasikan:", list(routes.keys()))
 
 # Initialize map
 m = folium.Map(location=[0, 100], zoom_start=3)
@@ -87,8 +87,8 @@ if selected_route:
 st_folium(m, width=700, height=500)
 
 # GPT-4 Analysis
-st.subheader("Analisis Pelindo AI")
-if st.button("Pelindo AI"):
+st.subheader("Analisis AI Pelindo")
+if st.button("Analisis Pelindo AI"):
     prompt = (
         f"Rute yang dipilih adalah: {selected_route}. Berikan analisis mendalam tentang bagaimana rute ini memengaruhi efisiensi logistik untuk PT Pelindo. Sertakan dampak ekonomi, potensi kemacetan pelabuhan, dan peluang optimalisasi rute yang dapat meningkatkan efisiensi operasional."
     )
@@ -109,9 +109,9 @@ if st.button("Pelindo AI"):
         st.error(f"Error berkomunikasi dengan GPT-4: {e}")
 
 # GPT-4 Custom Query
-st.subheader("Global Search")
+st.subheader("Pencarian Global")
 custom_query = st.text_area("Masukkan pertanyaan atau analisis yang Anda perlukan:")
-if st.button("Search GPT-4"):
+if st.button("Cari GPT-4"):
     if custom_query:
         try:
             response = openai.ChatCompletion.create(
@@ -128,5 +128,65 @@ if st.button("Search GPT-4"):
             st.error(f"Error berkomunikasi dengan GPT-4: {e}")
     else:
         st.warning("Mohon masukkan pertanyaan atau analisis yang diinginkan.")
+
+# Add Route Images and Descriptions
+st.subheader("Gambar dan Deskripsi Rute")
+st.image("Ship-route-description-from-Asia-to-Northern-Europe.png", caption="Rute Busan ke Hamburg")
+st.markdown(
+    """### Deskripsi:
+    Berdasarkan peta yang Anda unggah, berikut adalah pelabuhan-pelabuhan yang dilewati oleh kapal dari Asia menuju Eropa Utara:
+    - **Busan (Korea Selatan)**: Pelabuhan awal di Asia Timur.
+    - **Qingdao (China)**: Pelabuhan di Tiongkok Timur.
+    - **Shanghai (China)**: Salah satu pelabuhan terbesar di dunia.
+    - **Yantian (China)**: Pelabuhan di wilayah Shenzhen.
+    - **Singapore**: Pelabuhan penghubung utama di Asia Tenggara.
+    - **Algeciras (Spanyol)**: Pelabuhan di pintu masuk ke Eropa melalui Selat Gibraltar.
+    - **Le Havre (Prancis)**: Pelabuhan utama di Eropa Barat.
+    - **Rotterdam (Belanda)**: Salah satu pelabuhan terbesar di Eropa.
+    - **Hamburg (Jerman)**: Pelabuhan akhir di Eropa Utara.
+
+    Rute ini menghubungkan pusat-pusat ekonomi utama di Asia dengan Eropa.
+    """)
+
+st.image("attacks-redsea-trade-routes-map-POL3820.jpg", caption="Dampak Perubahan Rute Perdagangan Laut Merah")
+st.markdown(
+    """### Deskripsi:
+    Peta ini mengilustrasikan bagaimana serangan terhadap kapal dagang di Laut Merah memengaruhi rute perdagangan:
+    - **Sebelum Perang Gaza**: Rute utama mencakup Selat Hormuz, Selat Bab al-Mandab, dan Terusan Suez.
+    - **Selama Perang Gaza**: Rute alternatif digunakan untuk menghindari area berisiko tinggi, memperpanjang waktu perjalanan secara signifikan.
+    - **Potensi Pengalihan Rute Minyak Teluk**: Kapal menghindari seluruh wilayah Teluk Persia, menggunakan rute yang lebih panjang dan aman melalui Tanjung Harapan.
+
+    Implikasi Strategis:
+    - Biaya lebih tinggi karena rute yang lebih panjang.
+    - Peningkatan biaya bahan bakar dan operasional.
+    - Premi keamanan dan asuransi meningkat.
+    """)
+
+st.image("1500img-4.jpg", caption="Rute Jakarta ke Shanghai dan Kembali")
+st.markdown(
+    """### Deskripsi:
+    - **Rute Hijau (Jakarta ke Shanghai)**:
+        - Jakarta (Indonesia), Surabaya, Shekou (China), Shantou, Fuqing, Shanghai-Ningbo (China).
+    - **Rute Merah (Shanghai ke Jakarta)**:
+        - Shanghai-Ningbo, Fuqing, Shantou, Shekou, Manila (Filipina), Davao, Jakarta.
+
+    Sorotan:
+    - Menghubungkan Asia Tenggara dengan Tiongkok secara efisien.
+    - Hub perdagangan regional Manila memainkan peran penting.
+    """)
+
+st.image("Direct-Call.jpg", caption="Rute Direct Call dari Tanjung Priok")
+st.markdown(
+    """### Deskripsi:
+    Rute dari Tanjung Priok menghubungkan Indonesia langsung ke:
+    - **Amerika Serikat**: Pelabuhan-pelabuhan di pantai timur seperti New York dan Norfolk.
+    - **Eropa**: Pelabuhan seperti Rotterdam dan Hamburg.
+    - **Intra-Asia**: Hub utama seperti Singapura dan Hong Kong.
+    - **Australia**: Brisbane, Adelaide, Sydney, dan Melbourne.
+
+    Manfaat:
+    - Mengurangi waktu transit.
+    - Rute ekspor yang kompetitif.
+    """)
 
 
