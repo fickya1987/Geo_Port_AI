@@ -3,4 +3,4 @@ pandas
 folium
 streamlit-folium
 python-dotenv
-openai
+openai==0.28
